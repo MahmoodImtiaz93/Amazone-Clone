@@ -1,4 +1,5 @@
 import 'package:amazone_clone/constants/global_variable.dart';
+import 'package:amazone_clone/features/home/widgets/address_box.dart';
 import 'package:amazone_clone/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -85,12 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-          child: Center(
-        child: Text(
-          user.toJson(),
-        ),
-      )),
+      body: Column(
+        children: [
+          const AddressBox(),
+        ],
+      ),
     );
   }
 }
