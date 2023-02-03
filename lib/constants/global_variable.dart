@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-String uri ='http://10.0.2.2:3000';
+String uri = 'http://10.0.2.2:3000';
+
 class GlobalVariables {
   static const appBarGradient = LinearGradient(
     colors: [
@@ -47,7 +48,4 @@ class GlobalVariables {
       'image': 'assets/images/fashion.jpeg',
     },
   ];
-
-
-
 }
