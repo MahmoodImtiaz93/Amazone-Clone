@@ -1,4 +1,5 @@
 import 'package:amazone_clone/constants/global_variable.dart';
+import 'package:amazone_clone/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {
@@ -14,7 +15,7 @@ class _AdminScreenState extends State<AdminScreen> {
   double bottomNavigationBorderWidth = 5;
 
   List<Widget> pages = [
-    const Center(child: Text('Post Page')),
+    const PostScreen(),
     const Center(child: Text('Analitics')),
     const Center(child: Text('Message')),
   ];
@@ -80,7 +81,7 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
             label: '',
           ),
-          
+
           //Analitics
           BottomNavigationBarItem(
             icon: Container(
@@ -99,7 +100,7 @@ class _AdminScreenState extends State<AdminScreen> {
             label: '',
           ),
 
-        // Message
+          // Message
           BottomNavigationBarItem(
             icon: Container(
               width: bottomNavigationWidth,
