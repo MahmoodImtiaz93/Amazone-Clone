@@ -27,7 +27,7 @@ class AuthService {
         password: password,
         email: email,
         address: '',
-      //  type: '',
+        type: '',
         token: '',
       //  cart: [],
       );

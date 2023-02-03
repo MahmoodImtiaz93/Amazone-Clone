@@ -1,28 +1,22 @@
 import 'package:amazone_clone/constants/global_variable.dart';
-import 'package:amazone_clone/features/home/screens/home_screen.dart';
-import 'package:badges/badges.dart';
-
 import 'package:flutter/material.dart';
 
-import '../features/account/screens/account_screen.dart';
-
-class BottomBar extends StatefulWidget {
-  static const String routeName = '/actual-home';
-  BottomBar({Key? key}) : super(key: key);
+class AdminScreen extends StatefulWidget {
+  const AdminScreen({Key? key}) : super(key: key);
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _AdminScreenState extends State<AdminScreen> {
   int _page = 0;
   double bottomNavigationWidth = 42;
   double bottomNavigationBorderWidth = 5;
 
   List<Widget> pages = [
-    HomeScreen(),
-    AccountScreen(),
-    const Center(child: Text('Cart')),
+    const Center(child: Text('Post Page')),
+    const Center(child: Text('Analitics')),
+    const Center(child: Text('Message')),
   ];
 
   void updatePage(int page) {
@@ -34,6 +28,33 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(56),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(gradient: GlobalVariables.appBarGradient),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  'assets/images/amazon_in.png',
+                  width: 120,
+                  height: 45,
+                  color: Colors.black,
+                ),
+              ),
+              const Text(
+                'Admin',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+              )
+            ],
+          ),
+        ),
+      ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _page,
@@ -59,7 +80,8 @@ class _BottomBarState extends State<BottomBar> {
             ),
             label: '',
           ),
-          //profile
+          
+          //Analitics
           BottomNavigationBarItem(
             icon: Container(
               width: bottomNavigationWidth,
@@ -72,11 +94,12 @@ class _BottomBarState extends State<BottomBar> {
                       width: bottomNavigationBorderWidth),
                 ),
               ),
-              child: Icon(Icons.person_outline_outlined),
+              child: Icon(Icons.analytics_outlined),
             ),
             label: '',
           ),
-          //Cart
+
+        // Message
           BottomNavigationBarItem(
             icon: Container(
               width: bottomNavigationWidth,
@@ -89,15 +112,10 @@ class _BottomBarState extends State<BottomBar> {
                       width: bottomNavigationBorderWidth),
                 ),
               ),
-              // ignore: prefer_const_constructors
-              child: Badge(
-                  badgeContent: const Text('2'),
-                  badgeStyle:
-                      BadgeStyle(elevation: 0, badgeColor: Colors.white),
-                  child: const Icon(Icons.shopping_bag_outlined)),
+              child: Icon(Icons.all_inbox_outlined),
             ),
             label: '',
-          )
+          ),
         ],
       ),
     );
