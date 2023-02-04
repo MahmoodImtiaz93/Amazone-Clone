@@ -1,12 +1,13 @@
 import 'dart:ui';
 
 import 'package:amazone_clone/constants/global_variable.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-product';
- const AddProductScreen({Key? key}) : super(key: key);
-  
+  const AddProductScreen({Key? key}) : super(key: key);
+
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
 }
@@ -24,6 +25,52 @@ class _AddProductScreenState extends State<AddProductScreen> {
           title: const Text(
             'Add Product',
             style: TextStyle(color: Colors.black),
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Form(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
+                DottedBorder(
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(10.0),
+                  dashPattern: const [10, 4],
+                  strokeCap: StrokeCap.round,
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.folder_open,
+                          size: 40,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          'Select Product Image',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.grey.shade400,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
