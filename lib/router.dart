@@ -1,4 +1,5 @@
 import 'package:amazone_clone/common/bottom_bar.dart';
+import 'package:amazone_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazone_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
