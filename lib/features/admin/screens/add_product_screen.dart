@@ -4,8 +4,8 @@ import 'package:amazone_clone/constants/global_variable.dart';
 import 'package:flutter/material.dart';
 
 class AddProductScreen extends StatefulWidget {
-  
-  AddProductScreen({Key? key}) : super(key: key);
+  static const String routeName = '/add-product';
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
   State<AddProductScreen> createState() => _AddProductScreenState();
@@ -21,7 +21,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
           flexibleSpace: Container(
             decoration: BoxDecoration(gradient: GlobalVariables.appBarGradient),
           ),
-          title: const Text('Add Product',style: TextStyle(color: Colors.black),) ,
+          title: const Text(
+            'Add Product',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
       ),
     );
