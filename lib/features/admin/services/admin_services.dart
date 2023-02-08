@@ -19,11 +19,21 @@ class AdminServices {
       final cloudinary = CloudinaryPublic('ddindzhz5', 'dwa6f4bx');
       List<String> imageUrls = [];
       for (int i = 0; i < images.length; i++) {
-        CloudinaryResponse res= await cloudinary.uploadFile(CloudinaryFile.fromFile(images[i].path,folder:name));
+        CloudinaryResponse res = await cloudinary
+            .uploadFile(CloudinaryFile.fromFile(images[i].path, folder: name));
         imageUrls.add(res.secureUrl);
       }
-      Product product = Product(name, description, quantity, images, category, price, id, userId)
 
+      Product product = Product(
+        name: name,
+        description: description,
+        quantity: quantity,
+        images: imageUrls,
+        category: category,
+        price: price,
+      );
+
+      
     } catch (e) {
       showSnackBar(context, e.toString());
     }
