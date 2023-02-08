@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:amazone_clone/constants/utils.dart';
+import 'package:amazone_clone/model/product.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,8 +21,9 @@ class AdminServices {
       for (int i = 0; i < images.length; i++) {
         CloudinaryResponse res= await cloudinary.uploadFile(CloudinaryFile.fromFile(images[i].path,folder:name));
         imageUrls.add(res.secureUrl);
-
       }
+      Product product = Product(name, description, quantity, images, category, price, id, userId)
+
     } catch (e) {
       showSnackBar(context, e.toString());
     }
