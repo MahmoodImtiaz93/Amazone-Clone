@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:amazone_clone/constants/utils.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/cupertino.dart';
 
 class AdminServices {
@@ -14,10 +15,13 @@ class AdminServices {
     required List<File> images,
   }) async {
     try {
-      
-      
+      final cloudinary = CloudinaryPublic('ddindzhz5', 'dwa6f4bx');
+      List<String> imageUrls = [];
+      for (int i = 0; i < images.length; i++) {
+        CloudinaryResponse res= await cloudinary.uploadFile(CloudinaryFile.fromFile(images[i].path,folder:name));
+        imageUrls.add(res.secureUrl);
 
-
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }
