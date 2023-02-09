@@ -5,6 +5,7 @@ import 'package:amazone_clone/common/widgets/custome_button.dart';
 import 'package:amazone_clone/common/widgets/custome_textfield.dart';
 import 'package:amazone_clone/constants/global_variable.dart';
 import 'package:amazone_clone/constants/utils.dart';
+import 'package:amazone_clone/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +23,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final TextEditingController discriptionController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
+  final AdminServices adminServices = AdminServices();
 
   String category = 'Mobiles';
   List<File> images = [];
+
+  final _addProductFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -43,6 +47,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion',
   ];
+
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: discriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
 
   void selectImages() async {
     var res = await pickImages();
@@ -68,6 +86,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: _addProductFormKey,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -75,7 +94,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(
                   height: 20.0,
                 ),
-               images.isNotEmpty
+                images.isNotEmpty
                     ? CarouselSlider(
                         items: images.map((i) {
                           return Builder(
@@ -87,18 +106,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           );
                         }).toList(),
                         options: CarouselOptions(
-                           autoPlay: true,
+                          //autoPlay: true,
                           height: 200,
                           viewportFraction: 1.0,
-                          autoPlayInterval: const Duration(seconds: 2),
-                          autoPlayAnimationDuration:
-                            const  Duration(milliseconds: 800),
-                          autoPlayCurve: Curves.fastOutSlowIn,
+                         // autoPlayInterval: const Duration(seconds: 2),
+                        //  autoPlayAnimationDuration:
+                          //    const Duration(milliseconds: 800),
+                         // autoPlayCurve: Curves.fastOutSlowIn,
                           enlargeCenterPage: true,
                           enlargeFactor: 0.3,
                         ),
                       )
-                    :  GestureDetector(
+                    : GestureDetector(
                         onTap: selectImages,
                         child: DottedBorder(
                           borderType: BorderType.RRect,
@@ -178,7 +197,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 CustomButton(
                   text: 'Sell',
-                  onTap: () {},
+                  onTap: sellProduct,
                 )
               ],
             ),
