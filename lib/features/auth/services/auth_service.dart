@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:amazone_clone/common/bottom_bar.dart';
 import 'package:amazone_clone/constants/error_handaling.dart';
@@ -12,7 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  //signup User
+  // sign up user
   void signUpUser({
     required BuildContext context,
     required String email,
@@ -20,8 +21,7 @@ class AuthService {
     required String name,
   }) async {
     try {
-     // User  user = User ('', name, email, password, '', '', '');
-        User user = User(
+      User user = User(
         id: '',
         name: name,
         password: password,
@@ -29,20 +29,22 @@ class AuthService {
         address: '',
         type: '',
         token: '',
-      //  cart: [],
+       // cart: [],
       );
+
       http.Response res = await http.post(
-        Uri.parse('$uri/api/singup'),
+        Uri.parse('$uri/api/signup'),
         body: user.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          print("Account created!"+res.body);
+          print('Account created! Login with the same credentials!');
           showSnackBar(
             context,
             'Account created! Login with the same credentials!',
@@ -50,6 +52,8 @@ class AuthService {
         },
       );
     } catch (e) {
+      log(e.toString());
+      print(e.toString());
       showSnackBar(context, e.toString());
     }
   }
@@ -75,6 +79,8 @@ class AuthService {
         response: res,
         context: context,
         onSuccess: () async {
+        //  Future.delayed(const Duration(seconds: 2)); 
+         WidgetsFlutterBinding.ensureInitialized();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           // ignore: use_build_context_synchronously
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
@@ -97,10 +103,13 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
+  //    Future.delayed(Duration(seconds: 2)); 
+      WidgetsFlutterBinding.ensureInitialized();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
-
+      print(token.toString());
       if (token == null) {
+        print('token null section');
         prefs.setString('x-auth-token', '');
       }
 
@@ -123,6 +132,7 @@ class AuthService {
           },
         );
 
+        // ignore: use_build_context_synchronously
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
