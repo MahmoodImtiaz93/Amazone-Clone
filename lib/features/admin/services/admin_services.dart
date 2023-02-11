@@ -53,11 +53,13 @@ class AdminServices {
         response: res,
         context: context,
         onSuccess: () {
+          print('Added Successfully');
           //showSnackBar(context, 'Product Added Succefully');
           Navigator.pop(context);
         },
       );
     } catch (e) {
+      print(e.toString());
       showSnackBar(context, e.toString());
     }
   }
