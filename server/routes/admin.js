@@ -21,5 +21,18 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
   }
 });
 
+// get all the product
+// /admin/get-product
 
-module.exports=adminRouter;
+adminRouter.get("/admin/get-products",admin, async (req, res) => {
+  try {
+    const product = await Product.find({
+      // userid: req.body.userid,
+    });
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+module.exports = adminRouter;
