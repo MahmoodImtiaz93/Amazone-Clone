@@ -22,16 +22,21 @@ class AdminServices {
     required List<File> images,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    print('initilized' + userProvider.user.token.toString());
+
     try {
+      print('try block');
       final cloudinary = CloudinaryPublic('ddindzhz5', 'dwa6f4bx');
-     List<String> imageUrls = [];
+      List<String> imageUrls = [];
 
       for (int i = 0; i < images.length; i++) {
+         print('inside loop');
         CloudinaryResponse res = await cloudinary.uploadFile(
           CloudinaryFile.fromFile(images[i].path, folder: name),
         );
         imageUrls.add(res.secureUrl);
       }
+
       Product product = Product(
         name: name,
         description: description,
@@ -41,25 +46,29 @@ class AdminServices {
         price: price,
       );
 
-     http.Response res = await http.post(
+      http.Response res = await http.post(
         Uri.parse('$uri/admin/add-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: product.toJson(),
+        
       );
+      print('Response body : '+res.body.toString());
       httpErrorHandle(
         response: res,
         context: context,
         onSuccess: () {
-          print('Added Successfully');
-          //showSnackBar(context, 'Product Added Succefully');
+          print('On Success . Product Added SUccessfully!');
+         // showSnackBar(context, 'Product Added Successfully!');
           Navigator.pop(context);
+          
+        //  print('on success'+userProvider.user.token.toString());
         },
       );
     } catch (e) {
-      print(e.toString());
+      print('error'+userProvider.user.token.toString());
       showSnackBar(context, e.toString());
     }
   }

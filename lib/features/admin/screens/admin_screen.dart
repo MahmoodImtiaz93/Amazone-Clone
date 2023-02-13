@@ -3,6 +3,7 @@ import 'package:amazone_clone/features/admin/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 
 class AdminScreen extends StatefulWidget {
+  static const String routeName = '/admin-screen';
   const AdminScreen({Key? key}) : super(key: key);
 
   @override
