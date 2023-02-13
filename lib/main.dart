@@ -4,6 +4,7 @@ import 'package:amazone_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazone_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone/features/auth/services/auth_service.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
+import 'package:amazone_clone/provider/productprovider.dart';
 import 'package:amazone_clone/provider/user_provider.dart';
 import 'package:amazone_clone/router.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,10 @@ Future<void> main() async{
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
-    )
+    ),
+    ChangeNotifierProvider(
+      create: (context) => ProductProvider(),
+    ),
   ], child: const MyApp()));
 }
 
