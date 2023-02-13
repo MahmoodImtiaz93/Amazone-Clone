@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../admin/screens/admin_screen.dart';
+
 class AuthService {
   // sign up user
   void signUpUser({
@@ -29,7 +31,7 @@ class AuthService {
         address: '',
         type: '',
         token: '',
-       // cart: [],
+        // cart: [],
       );
 
       http.Response res = await http.post(
@@ -76,25 +78,32 @@ class AuthService {
         },
       );
       httpErrorHandle(
-        response: res,
-        context: context,
-        onSuccess: () async {
-        //  Future.delayed(const Duration(seconds: 2)); 
-         WidgetsFlutterBinding.ensureInitialized();
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          // ignore: use_build_context_synchronously
-          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
-          await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          // ignore: use_build_context_synchronously
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            BottomBar.routeName,
-            (route) => false,
-          );
-        },
-      );
+          response: res,
+          context: context,
+          onSuccess: () async {
+            //  Future.delayed(const Duration(seconds: 2));
+            WidgetsFlutterBinding.ensureInitialized();
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            // ignore: use_build_context_synchronously
+            Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+            await prefs.setString(
+                'x-auth-token', jsonDecode(res.body)['token']);
+            print(prefs.getString('x-auth-token'));
+            // ignore: use_build_context_synchronously
+            Future.delayed(Duration(seconds: 1)).then((value) {
+              Navigator.of(context, rootNavigator: true)
+                  .pushNamedAndRemoveUntil(
+                      Provider.of<UserProvider>(context, listen: false)
+                                  .user
+                                  .type ==
+                              'user'
+                          ? BottomBar.routeName
+                          : AdminScreen.routeName,
+                      (route) => false);
+            });
+          });
     } catch (e) {
-      showSnackBar(context, e.toString());
+      //  showSnackBar(context, e.toString());
     }
   }
 
@@ -103,7 +112,7 @@ class AuthService {
     BuildContext context,
   ) async {
     try {
-  //    Future.delayed(Duration(seconds: 2)); 
+      //    Future.delayed(Duration(seconds: 2));
       WidgetsFlutterBinding.ensureInitialized();
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
@@ -132,12 +141,11 @@ class AuthService {
           },
         );
 
-        // ignore: use_build_context_synchronously
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
     } catch (e) {
-      showSnackBar(context, e.toString());
+      // showSnackBar(context, e.toString());
     }
   }
 }
