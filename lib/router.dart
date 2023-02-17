@@ -4,6 +4,7 @@ import 'package:amazone_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazone_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
+import 'package:amazone_clone/features/home/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -30,6 +31,15 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (context) => AdminScreen(),
+      );
+
+    case SearchScreen.routeName:
+      var searchQuery = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (context) => SearchScreen(
+          searchQuery: searchQuery,
+        ),
       );
 
     case CategoryDealsScreen.routeName:
