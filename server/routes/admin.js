@@ -24,7 +24,7 @@ adminRouter.post("/admin/add-product", admin, async (req, res) => {
 // get all the product
 // /admin/get-product
 
-adminRouter.get("/admin/get-products", admin, async (req, res) => {
+adminRouter.get("/admin/get-products",  async (req, res) => {
   try {
     const product = await Product.find({
       userid: req.body.userid,
