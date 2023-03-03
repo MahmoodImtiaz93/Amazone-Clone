@@ -1,6 +1,7 @@
 import 'package:amazone_clone/constants/global_variable.dart';
 import 'package:amazone_clone/constants/loader.dart';
 import 'package:amazone_clone/features/home/services/home_services.dart';
+import 'package:amazone_clone/features/product_details/screen/product_screen.dart';
 import 'package:amazone_clone/model/product.dart';
 import 'package:flutter/material.dart';
 
@@ -85,24 +86,29 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         );
                       }
                       final product = productList![index];
-                      return Column(
-                        children: [
-                          SizedBox(
-                            height: 130,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 0.5,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, ProductDetailScreen.routeName, arguments: product);
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 130,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 0.5,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Image.network(product.images[0]),
                                 ),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Image.network(product.images[0]),
-                              ),
-                            ),
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
