@@ -10,10 +10,9 @@ import 'package:amazone_clone/router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
- 
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => UserProvider(),
@@ -32,21 +31,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-   final AuthService authService = AuthService();
+  final AuthService authService = AuthService();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-     authService.getUserData(context);
-     print("initState");
+    authService.getUserData(context);
+    print("initState");
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
-      
       debugShowCheckedModeBanner: false,
       title: 'Amazon',
       theme: ThemeData(
@@ -64,8 +61,6 @@ class _MyAppState extends State<MyApp> {
               ? BottomBar()
               : const AdminScreen()
           : const AuthScreen(),
-          
     );
-    
   }
 }
