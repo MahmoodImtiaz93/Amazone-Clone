@@ -5,7 +5,7 @@ import 'package:amazone_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
 import 'package:amazone_clone/features/home/search/screen/search_screen.dart';
-import 'package:amazone_clone/features/product_details/screen/product_screen.dart';
+import 'package:amazone_clone/features/product_details/screen/product_details_screen.dart';
 import 'package:amazone_clone/model/product.dart';
 import 'package:flutter/material.dart';
 
