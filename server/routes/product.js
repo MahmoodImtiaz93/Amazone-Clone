@@ -59,7 +59,7 @@ productRouter.post("/api/rate-product", auth, async (req, res) => {
     product.ratings.push(ratingSchema);
     product = await product.save();
     res.json(product);
-  } catch (e) { 
+  } catch (e) {   
     res.status(500).json({ error: e.message });
   }
 });
