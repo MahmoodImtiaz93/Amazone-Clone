@@ -30,7 +30,7 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  // ratings: [ratingSchema],
+  ratings: [ratingSchema],
 });
 
 // module.exports = mongoose.model('Product', productSchema); // this one working
