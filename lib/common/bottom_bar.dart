@@ -1,8 +1,11 @@
 import 'package:amazone_clone/constants/global_variable.dart';
+import 'package:amazone_clone/features/cart/screens/cart_screen.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
+import 'package:amazone_clone/provider/user_provider.dart';
 import 'package:badges/badges.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../features/account/screens/account_screen.dart';
 
@@ -22,7 +25,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     HomeScreen(),
     AccountScreen(),
-    const Center(child: Text('Cart')),
+    const CartScreen(),
   ];
 
   void updatePage(int page) {
@@ -33,6 +36,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -91,7 +95,7 @@ class _BottomBarState extends State<BottomBar> {
               ),
               // ignore: prefer_const_constructors
               child: Badge(
-                  badgeContent: const Text('2'),
+                  badgeContent:   Text(userCartLen.toString()),
                   badgeStyle:
                       BadgeStyle(elevation: 0, badgeColor: Colors.white),
                   child: const Icon(Icons.shopping_bag_outlined)),

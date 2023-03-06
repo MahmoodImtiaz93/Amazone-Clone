@@ -9,12 +9,14 @@ const mongoDBPath =
 
 //Imported From Other Files
 const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
 
 //middleware
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);
+app.use(userRouter);
 
 //Connections
 mongoose

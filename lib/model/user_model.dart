@@ -8,7 +8,8 @@ class User {
   final String address;
   final String type;
   final String token;
-  // final List<dynamic> cart;
+  final List<dynamic> cart;
+ // final String msg;
 
   User({
     required this.id,
@@ -18,7 +19,8 @@ class User {
     required this.address,
     required this.type,
     required this.token,
-    // required this.cart,
+      required this.cart,
+     // required this.msg
   });
 
   Map<String, dynamic> toMap() {
@@ -30,7 +32,9 @@ class User {
       'address': address,
       'type': type,
       'token': token,
-      // 'cart': cart,
+    //  'msg': msg,
+
+       'cart': cart,
     };
   }
 
@@ -43,11 +47,12 @@ class User {
       address: map['address'] ?? '',
       type: map['type'] ?? '',
       token: map['token'] ?? '',
-      // cart: List<Map<String, dynamic>>.from(
-      //   map['cart']?.map(
-      //     (x) => Map<String, dynamic>.from(x),
-      //   ),
-      // ),
+    //  msg: map['msg'] ?? '',
+      cart: List<Map<String, dynamic>>.from(
+        map['cart']?.map(
+          (x) => Map<String, dynamic>.from(x),
+        ),
+      ),
     );
   }
 
@@ -63,7 +68,9 @@ class User {
     String? address,
     String? type,
     String? token,
-    //  List<dynamic>? cart,
+    String? msg,
+
+      List<dynamic>? cart,
   }) {
     return User(
       id: id ?? this.id,
@@ -73,7 +80,8 @@ class User {
       address: address ?? this.address,
       type: type ?? this.type,
       token: token ?? this.token,
-      //cart: cart ?? this.cart,
+    //  msg: msg ?? this.msg,
+      cart: cart ?? this.cart,
     );
   }
 }
