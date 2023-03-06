@@ -31,7 +31,8 @@ class AuthService {
         address: '',
         type: '',
         token: '',
-        // cart: [],
+       // msg: '',
+        cart: [],
       );
 
       http.Response res = await http.post(
@@ -47,16 +48,25 @@ class AuthService {
         context: context,
         onSuccess: () {
           print('Account created! Login with the same credentials!');
-          showSnackBar(
-            context,
-            'Account created! Login with the same credentials!',
-          );
+          // showSnackBar(
+          //   context,
+          //   'Account created! Login with the same credentials!',
+          // );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Account created! Login with the same credentials!"),
+            duration: Duration(milliseconds: 3000),
+          ));
         },
       );
     } catch (e) {
+      print("error singup");
       log(e.toString());
       print(e.toString());
-      showSnackBar(context, e.toString());
+      // showSnackBar(context, e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        duration: Duration(milliseconds: 300),
+      ));
     }
   }
 
@@ -103,7 +113,12 @@ class AuthService {
             });
           });
     } catch (e) {
+      print(" On error");
       //  showSnackBar(context, e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        duration: Duration(milliseconds: 3000),
+      ));
     }
   }
 

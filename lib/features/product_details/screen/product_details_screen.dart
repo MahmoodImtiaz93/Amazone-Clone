@@ -41,13 +41,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         myRating = widget.product.rating![i].rating;
       }
     }
-    if(totalRating!=0){
-      avgRating=totalRating/widget.product.rating!.length;
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.product.rating!.length;
     }
   }
 
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
+  }
+
+  void addToCart() {
+    productDetailsServices.addToCart(
+      context: context,
+      product: widget.product,
+    );
   }
 
   @override
@@ -132,7 +139,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(widget.product.id!),
-                    Stars(rating: avgRating),
+                  Stars(rating: avgRating),
                 ],
               ),
             ),
@@ -216,7 +223,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(10.0),
               child: CustomButton(
                 text: 'Add to cart',
-                onTap: () {},
+                onTap:  addToCart,
                 color: const Color.fromRGBO(254, 216, 19, 1),
               ),
             ),
