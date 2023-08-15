@@ -1,11 +1,14 @@
 import 'package:amazone_clone/common/bottom_bar.dart';
+import 'package:amazone_clone/features/Address/screens/address_screen.dart';
 import 'package:amazone_clone/features/admin/screens/add_product_screen.dart';
 import 'package:amazone_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazone_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazone_clone/features/home/screens/category_deals_screen.dart';
 import 'package:amazone_clone/features/home/screens/home_screen.dart';
 import 'package:amazone_clone/features/home/search/screen/search_screen.dart';
+import 'package:amazone_clone/features/order_details/screens/order_details.dart';
 import 'package:amazone_clone/features/product_details/screen/product_details_screen.dart';
+import 'package:amazone_clone/model/order.dart';
 import 'package:amazone_clone/model/product.dart';
 import 'package:flutter/material.dart';
 
@@ -44,12 +47,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         ),
       );
 
-      case ProductDetailScreen.routeName:
+    case ProductDetailScreen.routeName:
       var product = routeSettings.arguments as Product;
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (context) => ProductDetailScreen(
-         product: product,
+          product: product,
         ),
       );
 
@@ -66,6 +69,19 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (context) => AddProductScreen(),
+      );
+
+    case AddressScreen.routeName:
+      var totalAmount = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (context) => AddressScreen(totalAmount: totalAmount),
+      );
+    case OrderDetailScreen.routeName:
+      var order = routeSettings.arguments as Order;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (context) => OrderDetailScreen(order: order),
       );
 
     default:

@@ -1,6 +1,7 @@
  
 import 'package:amazone_clone/common/widgets/custome_button.dart';
 import 'package:amazone_clone/constants/global_variable.dart';
+import 'package:amazone_clone/features/Address/screens/address_screen.dart';
 import 'package:amazone_clone/features/cart/widgets/cart_product.dart';
 import 'package:amazone_clone/features/cart/widgets/cart_subtotal.dart';
 import 'package:amazone_clone/features/home/search/screen/search_screen.dart';
@@ -21,13 +22,13 @@ class _CartScreenState extends State<CartScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
-  // void navigateToAddress(int sum) {
-  //   Navigator.pushNamed(
-  //     context,
-  //     AddressScreen.routeName,
-  //     arguments: sum.toString(),
-  //   );
-  // }
+  void navigateToAddress(int sum) {
+    Navigator.pushNamed(
+      context,
+      AddressScreen.routeName,
+      arguments: sum.toString(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,9 +120,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                 text: 'Proceed to Buy (${user.cart.length} items)',
-                onTap:  () {
-                  
-                }, //  () => navigateToAddress(sum),
+                onTap: () => navigateToAddress(sum),
                 color: Colors.yellow[600],
               ),
             ),

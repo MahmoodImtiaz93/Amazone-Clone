@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:amazone_clone/constants/error_handaling.dart';
 import 'package:amazone_clone/constants/utils.dart';
+import 'package:amazone_clone/model/order.dart';
 import 'package:amazone_clone/model/product.dart';
 import 'package:amazone_clone/provider/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
@@ -137,5 +138,65 @@ Future<List<Product>> fetchAllProducts(BuildContext context) async {
       showSnackBar(context, e.toString());
     }
   }
+ Future<List<Order>> fetchAllOrders(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Order> orderList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
 
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderList.add(
+              Order.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderList;
+  }
+
+  void changeOrderStatus({
+    required BuildContext context,
+    required int status,
+    required Order order,
+    required VoidCallback onSuccess,
+  }) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/change-order-status'),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+        body: jsonEncode({
+          'id': order.id,
+          'status': status,
+        }),
+      );
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: onSuccess,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 }
