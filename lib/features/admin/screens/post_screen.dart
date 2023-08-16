@@ -54,36 +54,7 @@ void deleteProduct(Product product, int index){
                     crossAxisCount: 2),
                 itemBuilder: (context, index) {
                   final productData = products![index];
-                  return Column(
-                    children: [
-                      SizedBox(
-                        height: 140,
-                        child: SingleProduct(image: productData.images[0]),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                productData.name,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              deleteProduct(productData, index);
-                            },
-                            icon: const Icon(Icons.delete_outlined),
-                          )
-                        ],
-                      )
-                    ],
-                  );
+                  return _productPost(productData, index);
                 },
               ),
               floatingActionButton: FloatingActionButton(
@@ -95,5 +66,38 @@ void deleteProduct(Product product, int index){
                   FloatingActionButtonLocation.centerFloat,
             ),
           );
+  }
+
+  Widget _productPost(Product productData, int index) {
+    return Column(
+                  children: [
+                    SizedBox(
+                      height: 140,
+                      child: SingleProduct(image: productData.images[0]),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              productData.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            deleteProduct(productData, index);
+                          },
+                          icon: const Icon(Icons.delete_outlined),
+                        )
+                      ],
+                    )
+                  ],
+                );
   }
 }
