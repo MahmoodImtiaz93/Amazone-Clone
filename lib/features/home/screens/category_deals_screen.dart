@@ -66,55 +66,59 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
+                _productlistview()
+              ],
+            ),
+    );
+  }
+
+  Widget _productlistview() {
+    return SizedBox(
+      height: 170,
+      child: GridView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.only(left: 15),
+        itemCount: productList!.isEmpty ? 1 : productList!.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+        ),
+        itemBuilder: (context, index) {
+          if (productList!.isEmpty) {
+            return Container(
+              child: Text('Empty'),
+            );
+          }
+          final product = productList![index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, ProductDetailScreen.routeName,
+                  arguments: product);
+            },
+            child: Column(
+              children: [
                 SizedBox(
-                  height: 170,
-                  child: GridView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 15),
-                    itemCount: productList!.isEmpty ? 1 : productList!.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      childAspectRatio: 3 / 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
+                  height: 130,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 0.5,
+                      ),
                     ),
-                    itemBuilder: (context, index) {
-                      if (productList!.isEmpty) {
-                        return Container(
-                          child: Text('Empty'),
-                        );
-                      }
-                      final product = productList![index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, ProductDetailScreen.routeName, arguments: product);
-                        },
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 130,
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 0.5,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Image.network(product.images[0]),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Image.network(product.images[0]),
+                    ),
                   ),
                 )
               ],
             ),
+          );
+        },
+      ),
     );
   }
 }
