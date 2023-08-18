@@ -32,30 +32,7 @@ class _AdminScreenState extends State<AdminScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(56),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(gradient: GlobalVariables.appBarGradient),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                alignment: Alignment.topLeft,
-                child: Image.asset(
-                  'assets/images/amazon_in.png',
-                  width: 120,
-                  height: 45,
-                  color: Colors.black,
-                ),
-              ),
-              const Text(
-                'Admin',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-              )
-            ],
-          ),
-        ),
+        child: _adminCustomeAppBar(),
       ),
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -121,5 +98,32 @@ class _AdminScreenState extends State<AdminScreen> {
         ],
       ),
     );
+  }
+
+  AppBar _adminCustomeAppBar() {
+    return AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(gradient: GlobalVariables.appBarGradient),
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/images/amazon_in.png',
+                width: 120,
+                height: 45,
+                color: Colors.black,
+              ),
+            ),
+            const Text(
+              'Admin',
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+            )
+          ],
+        ),
+      );
   }
 }
